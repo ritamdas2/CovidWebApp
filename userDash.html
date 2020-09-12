@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <script>
+    function signOut() {
+      window.location.href = "index.html";
+    }
+  </script>
 </head>
 
 <body class="dark-edition">
@@ -47,7 +52,8 @@
                 <p>Admin Dashboard</p>
             </a>
             <li class="nav-item active  ">
-                <a class="nav-link" href="javascript:void(0)">
+                <!-- <a class="nav-link" href="javascript:void(0)">-->
+                    <a class="nav-link" href="#" onclick="signOut();">
                 <i class="material-icons"></i>
                   <p>Sign Out</p>
               </a>
@@ -60,7 +66,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+            <a class="navbar-brand" href="javascript:void(0)">User Dashboard</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -177,51 +183,7 @@
                     </div>
                   </div>
                 </div>
-            <div class="row">
-              <div class="col-lg-6 col-md-12">
-                <div class="card">
-                  <div class="card-header card-header-primary">
-                    <h4 class="card-title"></h4>
-                    <p class="card-category">Users</p>
-                  </div>
-                  <div class="card-body table-responsive">
-                    <table class="table table-hover">
-                      <thead class="text-warning">
-                        <th>At Risk?</th>
-                        <th>Name</th>
-                        <th>Email ID</th>
-                        <th>Location</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Y</td>
-                          <td>Dakota Rice</td>
-                          <td>riced@bu.edu</td>
-                          <td>Warren Towers</td>
-                        </tr>
-                        <tr>
-                          <td>N</td>
-                          <td>Minerva Hooper</td>
-                          <td>mhooper26@bu.edu</td>
-                          <td>39 Buswell St</td>
-                        </tr>
-                        <tr>
-                          <td>Y</td>
-                          <td>Sage Rodriguez</td>
-                          <td>rod_s99@gmail.com</td>
-                          <td>Off-Campus</td>
-                        </tr>
-                        <tr>
-                          <td>Y</td>
-                          <td>Philip Chaney</td>
-                          <td>phil81@bu.edu</td>
-                          <td>Whitestones</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+            
               <div class="col-lg-6 col-md-12">
                 <div class="card">
                   <div class="card-header card-header-tabs card-header-warning">

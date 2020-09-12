@@ -41,15 +41,35 @@
       <!-- <div id="my-signin2" onclick="googleLogin()" ></div> -->
       <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="240" data-height="50" data-longtitle="true"></div>
       <!-- <div><fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> </div> -->
-      <div class="fb-login-button" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width="240" data-height="50"></div>
-      <div><a href="#" onclick="signOut();">Sign out</a></div>
+      <br>
+      <div class="fb-login-button" onlogin="checkLoginState()" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width="240" data-height="50"></div>
+      <br>
+      <br>
+      <!-- <div><a href="#" onclick="signOut();">Sign out</a></div>-->
     </div>
   <script>
     
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
-      document.getElementById('uname').value=profile.getEmail();
-      window.location.href = "adminDash.html";
+      //document.getElementById('uname').value=profile.getEmail();
+      var uid = profile.getEmail();
+      var uuid = uid.replace(".", "");
+      //document.getelementbyid("uname").value = uuid;
+      //var db = firebase.database();
+      //var userref = db.ref("users/0/");
+      //userref.child(uuid).once("value", function(snapshot) {
+      //if (snapshot.val() != null){
+      //  const userData = snapshot.val();
+      //document.getelementbyid("uname").value = userData;
+   // }
+//});
+      if (uuid == "ritamdas@buedu") {
+        window.location.href = "adminDash.html";
+      }
+      if (uuid == "ritamdas2017@gmailcom") {
+        window.location.href = "userDash.html";
+      }
+      signOut();
     }
 
     function signOut() {
@@ -61,10 +81,13 @@
 
     function checkLoginState() {
        const provider = new firebase.auth.FacebookAuthProvider();
+       ({ scope: 'email' });
         firebase.auth().signInWithPopup(provider)
           .then(result => {
             const user = result.user;
-            document.getElementById('uname').value=result.user;
+            window.location.href = "userDash.html";
+            //document.getElementById('uname').value=user.email;
+            //console.log(user);
           })
     }
     
