@@ -2,18 +2,23 @@
 <html lang="en">
 
 <head>
-  <title>User Dash COVID Check</title>
+  <title>Admin Dash COVID Check</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-  <script type = "text/javascript" src ="quiz.js"></script>
+  <script>
+    function signOut() {
+      window.location.href = "index.html";
+    }
+  </script>
 </head>
+
 
 <body class="dark-edition">
   <div class="wrapper ">
@@ -24,7 +29,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
       <div class="logo">
-        <a href="javascript:void(0)" class="simple-text logo-normal">
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
           BU COVID Check
         </a>
       </div>
@@ -43,12 +48,12 @@
               <p>COVID Questionnaire</p>
           </a>
           <li class="nav-item active  ">
-              <a class="nav-link" href="javascript:void(0)">
+              <a class="nav-link" href="adminDash.html">
               <i class="material-icons">perm_identity</i>
                 <p>Admin Dashboard</p>
             </a>
             <li class="nav-item active  ">
-                <a class="nav-link" href="javascript:void(0)">
+                <a class="nav-link" href="#" onclick="signOut();">
                 <i class="material-icons"></i>
                   <p>Sign Out</p>
               </a>
@@ -85,7 +90,7 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <for name= "quiz" id ="quiz">
+      <form name= "quiz" id ="quiz">
         
         <br>
         <br>
@@ -160,6 +165,7 @@
     </div>
   </div>
   <!--   Core JS Files   -->
+  <script type = "text/javascript" src ="quiz.js"></script>
   <script src="./assets/js/core/jquery.min.js"></script>
   <script src="./assets/js/core/popper.min.js"></script>
   <script src="./assets/js/core/bootstrap-material-design.min.js"></script>
@@ -178,6 +184,13 @@
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="./assets/demo/demo.js"></script>
   <script>
+    function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+    }
+
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');
