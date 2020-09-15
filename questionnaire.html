@@ -85,96 +85,63 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <form>
+      <for name= "quiz" id ="quiz">
         
         <br>
         <br>
-        <b>Have you had a fever of 100F, or feeling unusually hot accompanied by shivering/chills?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
+          <div><h><b>COVID-19 Daily Symptoms Screen</b></h> </div>
+          <div>
+            <p>1. Have you had a fever of 100F, or feeling unusually hot accompanied by shivering/chills?</p>
+            <p><input type="radio" name="question1" value="Yes"> YES </p>
+            <p><input type="radio" name="question1" value="No"> NO </p>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
+
+          <div>
+            <p>2. Are you experiencing a new cough not elated to chronic condition?</p>
+            <p><input type="radio" name="question2" value="Yes"> YES </p>
+            <p><input type="radio" name="question2" value="No"> NO </p>
           </div>
-          <br>
-          <b>Are you experiencing a new cough not elated to chronic condition?</b>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-              <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-              <label class="form-check-label" for="inlineCheckbox2">No</label>
-            </div>
-            <br>
-            <b>Do you have difficulty breathing or shortness of breath?</b>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">No</label>
-              </div>
+
+          <div>
+            <p>3. Do you have difficulty breathing or shortness of breath?</p>
+            <p><input type="radio" name="question3" value="Yes"> YES </p>
+            <p><input type="radio" name="question3" value="No"> NO </p>
+          </div>
+
+          <div>
+            <p>4. Do you have a sore throat?</p>
+            <p><input type="radio" name="question4" value="Yes"> YES </p>
+            <p><input type="radio" name="question4" value="No"> NO </p>
+          </div>
+
+          <div>
+            <p>5. Are you experiencing new loss of taste or smell?</p>
+            <p><input type="radio" name="question5" value="Yes"> YES </p>
+            <p><input type="radio" name="question5" value="No"> NO </p>
+          </div>
+
+          <div>
+            <p>6. Sever fatigue?</p>
+            <p><input type="radio" name="question6" value="Yes"> YES </p>
+            <p><input type="radio" name="question6" value="No"> NO </p>
+          </div>
+
+          <div>
+            <p>7. Sever muscle aches?</p>
+            <p><input type="radio" name="question7" value="Yes"> YES </p>
+            <p><input type="radio" name="question7" value="No"> NO </p>
+          </div> 
+          
+          <input type="button" name="" value="SUBMIT" id = "button" onclick="check()">
+        
+       
               <br>
-              <b>Do you have a sore throat?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
-          <b>Are you experiencing new loss of taste or smell?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
-          <b>Vomiting or extreme nausea?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
-          <b>Sever fatigue?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
-          <b>Sever muscle aches?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <br>
-        <br>
-        Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.
-        Visit your local healthcare professionals if you are experiencing severe symptoms or have been in contact with a contaminated individual.
-      </form>
+              <br>
+              Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.
+              Visit your local healthcare professionals if you are experiencing severe symptoms or have been in contact with a contaminated individual.
+            </form>
+      <p id = "result"></p>
+    
       <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">
