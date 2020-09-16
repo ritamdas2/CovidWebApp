@@ -32,11 +32,11 @@
     </style>
   </head>
   <body>
-    <input type=text id=uname name=uname> </input>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <div id="message">
-      <h1><b>My COVID App</b></h1>
-      <p>This is my covid app!</p>
+      <h1><b>BU COVID CHECK</b></h1>
+      <p>by Ritam Das & Fatima Dantsoho</p>
+      <b><h2>Please Sign In:</h2></b>
       <!----<a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a> -->
       <!-- <div id="my-signin2" onclick="googleLogin()" ></div> -->
       <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="240" data-height="50" data-longtitle="true"></div>
@@ -51,31 +51,38 @@
     
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
-      //document.getElementById('uname').value=profile.getEmail();
+      // document.getElementById('uname').value=profile.getEmail();
+      var BreakException = {};
       var uid = profile.getEmail();
       var uuid = uid.replace(".", "");
-      //document.getelementbyid("uname").value = uuid;
-      //var db = firebase.database();
-      //var userref = db.ref("users/0/");
-      //userref.child(uuid).once("value", function(snapshot) {
-      //if (snapshot.val() != null){
-      //  const userData = snapshot.val();
-      //document.getelementbyid("uname").value = userData;
-   // }
-//});
-      if (uuid == "ritamdas@buedu") {
-        window.location.href = "adminDash.html";
-      }
-      if (uuid == "ritamdas2017@gmailcom") {
-        window.location.href = "userDash.html";
-      }
+      var ref = firebase.database().ref("users");
+      ref.once("value").then(function(snapshot) {
+        snapshot.forEach(function(data) {
+          if (data.child("uemail").val() == uuid) {
+            var uutype = data.child("utype").val();
+            //alert(uutype +","+ uuid);
+            if (uutype == "A") {
+               window.location.href = "adminDash.html?uuid="+uuid+"&uutype="+uutype;
+               //throw BreakException;
+            }
+            else if (uutype == "U") {
+              window.location.href = "userDash.html?uuid="+uuid+"&uutype="+uutype;
+              //throw BreakException;
+            }
+            //document.getElementById('uname').value=uutype;
+            
+          }
+        });
+      });
+     // var utype = document.getElementById('uname').value;
+      
       signOut();
     }
 
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
-      document.getElementById('uname').value="user signed out";
+      //document.getElementById('uname').value="user signed out";
     });
   }
 
@@ -85,10 +92,23 @@
         firebase.auth().signInWithPopup(provider)
           .then(result => {
             const user = result.user;
-            window.location.href = "userDash.html";
-            //document.getElementById('uname').value=user.email;
-            //console.log(user);
-          })
+            var uid = user.email;
+            var uuid = uid.replace(".", "");
+            var ref = firebase.database().ref("users");
+            ref.once("value").then(function(snapshot) {
+              snapshot.forEach(function(data) {
+                if (data.child("uemail").val() == uuid) {
+                   var uutype = data.child("utype").val();          
+                   if (uutype == "A") {
+                      window.location.href = "adminDash.html?uuid="+uuid+"&uutype="+uutype;
+                   }
+                   else if (uutype == "U") {
+                      window.location.href = "userDash.html?uuid="+uuid+"&uutype="+uutype;
+                   }
+                }
+              });
+            });
+          });
     }
     
     window.fbAsyncInit = function() {

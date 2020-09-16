@@ -12,14 +12,157 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+
+  <script defer src="/__/firebase/7.19.1/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/7.19.1/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.19.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.19.1/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.19.1/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="https://cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+
   <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const uuid = urlParams.get('uuid');
+    const uutype = urlParams.get('uutype');
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = "userid";
+    container.appendChild(input);
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.id = "temp";
+    container.appendChild(input);
+    
+    document.getElementById('userid').value=uuid;
+    var ref = firebase.database().ref("users");
+      ref.once("value").then(function(snapshot) {
+        snapshot.forEach(function(data) {
+          if (data.child("uemail").val() == uuid) {
+            const userAtRisk = data.child("uatrisk").val();
+            document.getElementById('temp').value=userAtRisk;
+          }
+        });
+      });
+    
+    function getData() {
+      document.getElementById('userid').value=uuid;
+      var ref = firebase.database().ref("users");
+      ref.once("value").then(function(snapshot) {
+        snapshot.forEach(function(data) {
+          if (data.child("uemail").val() == uuid) {
+            const userAtRisk = data.child("uatrisk").val();
+            //alert(userAtRisk);
+            document.getElementById('temp').value=userAtRisk;
+          }
+        });
+      });
+      getAPIData();
+    }
+
     function signOut() {
       window.location.href = "index.html";
+    }
+
+    function formatNumber (num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    }
+
+    function getAPIData() {
+      try {
+		       var request = new XMLHttpRequest();                                            // initialize web client
+		       request.open('GET', 'https://api.covid19api.com/summary', false);              // open request
+	         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // set the header
+		       request.send();                                                                // send the request
+		       var jsObj = JSON.parse(request.responseText);                                  // parse the response
+
+           // display global summary
+           document.getElementById("cnf1").innerHTML = "New Confirmed  : " + formatNumber(jsObj["Global"]["NewConfirmed"]);
+           document.getElementById("cnf2").innerHTML = "Total Confirmed  : " + formatNumber(jsObj["Global"]["TotalConfirmed"]);
+           document.getElementById("cnf3").innerHTML = "New Deaths  : " + formatNumber(jsObj["Global"]["NewDeaths"]);
+           document.getElementById("cnf4").innerHTML = "Total Deaths  : " + formatNumber(jsObj["Global"]["TotalDeaths"]);
+           document.getElementById("cnf5").innerHTML = "New Recovered  : " + formatNumber(jsObj["Global"]["NewRecovered"]);
+           document.getElementById("cnf6").innerHTML = "Total Recovered  : " + formatNumber(jsObj["Global"]["TotalRecovered"]);
+
+           // fun with pie chart
+           //var totalCountries = 100;
+           var totalCountries = Object.keys(jsObj.Countries).length;
+           var graphData = "";
+           var i;
+           var cnt = 0;
+           for (i = 0; i < totalCountries; i++) {
+               var nCases = jsObj["Countries"][i]["NewConfirmed"];
+               if (parseInt(nCases) > 2000) {
+                   if (i < totalCountries - 1) {
+                      graphData += "{\"label\": \"" + jsObj["Countries"][i]["Country"] + "\", \"value\": \"" + jsObj["Countries"][i]["NewConfirmed"] + "\"},\n";
+                   }
+                   else {
+                      graphData += "{\"label\": \"" + jsObj["Countries"][i]["Country"] + "\", \"value\": \"" + jsObj["Countries"][i]["NewConfirmed"] + "\"}\n";
+                   }
+               }
+           }
+           
+           // remove the last comma in the string           
+           if (graphData.lastIndexOf(',') > 0) {
+              var otherchar = "";
+              var pos = graphData.lastIndexOf(',');
+              graphData = graphData.substring(0,pos) + otherchar + graphData.substring(pos+1)
+           }
+
+           // convert the string to JSON array
+           var graphData1 = JSON.parse('[' + graphData + ']');
+           
+           // Create a JSON object to store the chart configurations
+           const chartConfigs = {
+              //Specify the chart type
+              type: "column2d",
+              //Set the container object
+              renderAt: "chart",
+              //Specify the width of the chart
+              width: "100%",
+              //Specify the height of the chart
+              height: "400",
+              //Set the type of data
+              dataFormat: "json",
+              dataSource: {
+                chart: {
+                  //Set the chart caption
+                  caption: "Newly Confirmed Covid Cases",
+                  //Set the chart subcaption
+                  subCaption: "Countries with 2000 or more cases",
+                  //Set the x-axis name
+                  xAxisName: "Countries",
+                  //Set the y-axis name
+                  yAxisName: "Confirmed Cases",
+                  numberSuffix: "K",
+                  //Set the theme for your chart
+                  theme: "fusion"
+                },
+                // Chart Data from Step 2
+                data: graphData1
+              }
+           };
+           
+           // render the graph
+           FusionCharts.ready(function(){
+              var fusioncharts = new FusionCharts(chartConfigs);
+              fusioncharts.render();
+           });
+        }
+        catch (err) {
+          alert(err);
+        }
     }
   </script>
 </head>
 
-<body class="dark-edition">
+<body class="dark-edition" onload="getData()">
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="./assets/img/sidebar-2.jpg">
       <!--
@@ -28,7 +171,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="javascript:void(0)" class="simple-text logo-normal">
           BU COVID Check
         </a>
       </div>
@@ -42,12 +185,12 @@
           </li>
           <!-- your sidebar here -->
           <li class="nav-item active  ">
-            <a class="nav-link" href="questionnaire.html">
+            <a class="nav-link" href="questionnaire.html" onclick="location.href=this.href+'?uuid='+uuid; return false;">
             <i class="material-icons">assignment</i>
               <p>COVID Questionnaire</p>
           </a>
           <li class="nav-item active  ">
-              <a class="nav-link" href="javascript:void(0)">
+              <a class="nav-link" href="adminDash.html" onclick="if (uutype == 'A') {location.href=this.href+'?uuid='+uuid;} else {alert('Not an admin user')}; return false;">
               <i class="material-icons">perm_identity</i>
                 <p>Admin Dashboard</p>
             </a>
@@ -67,6 +210,8 @@
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="javascript:void(0)">User Dashboard</a>
+            <!-- User: <input type="text" id="userid">
+            At Risk: <input type="text" id="temp"> -->
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -93,7 +238,8 @@
       <div class="content">
         <div class="container-fluid">
           <!-- your content here -->
-          <div class="row">
+          <div id="chart" class="row">
+              <!--
               <div class="col-xl-4 col-lg-12">
                 <div class="card card-chart">
                   <div class="card-header card-header-danger">
@@ -103,7 +249,7 @@
                     <h4 class="card-title">Potential COVID Risks</h4>
                     <p class="card-category">
                         <h7 style="color:red"><b>25</b></h7></p>
-                      <!-- <span class="text-danger"><i class="fa fa-long-arrow-up"></i> 17% </span> </p>-->
+                      <span class="text-danger"><i class="fa fa-long-arrow-up"></i> 17% </span> </p>
                   </div>
                   <div class="card-footer">
                     <div class="stats">
@@ -144,10 +290,19 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             </div>
-            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+            <div>
+              <table>
+                <tr>
+                  <td><h2 style="color:white; font-size:20px; "><b>User: </b></h2> <input type="text" id="userid" readonly></td>
+                  <td><h2 style="color:white; font-size:20px; "><b>At Risk:</b></h2><input type="text" id="temp" style="color:red" readonly></td>
+                </tr>
+              </table>
+            </div>
+            
+           <!-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
                   <div class="card-header card-header-danger card-header-icon">
                     <div class="card-icon">
@@ -166,7 +321,7 @@
                   </div>
                 </div>
               </div>
-              <!-- fix layout-->
+             
               <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                   <div class="card card-stats">
                     <div class="card-header card-header-success card-header-icon">
@@ -183,7 +338,9 @@
                     </div>
                   </div>
                 </div>
-            
+              -->
+              <br>
+              <br>
               <div class="col-lg-6 col-md-12">
                 <div class="card">
                   <div class="card-header card-header-tabs card-header-warning">
@@ -193,7 +350,7 @@
                         <ul class="nav nav-tabs" data-tabs="tabs">
                           <li class="nav-item">
                             <a class="nav-link active" href="#profile" data-toggle="tab">
-                              <i class="material-icons">info</i> info
+                              <i class="material-icons">info</i> GLOBAL COVID SUMMARY
                               <div class="ripple-container"></div>
                             </a>
                           </li>
@@ -214,16 +371,17 @@
                           <tbody>
                             <tr>
                               <td>
+                                <!--
                                 <div class="form-check">
                                   <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
+                                     <input class="form-check-input" type="checkbox" value="" checked>
                                     <span class="form-check-sign">
                                       <span class="check"></span>
                                     </span>
                                   </label>
-                                </div>
+                                </div> -->
                               </td>
-                              <td>Wash hands for a minimum of 20 seconds</td>
+                              <td><div id="cnf1"></div></td>
                               <td class="td-actions text-right">
                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
                                   <i class="material-icons"></i>
@@ -235,16 +393,9 @@
                             </tr>
                             <tr>
                               <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
+                                
                               </td>
-                              <td>Wear a mask!</td>
+                              <td><div id="cnf2"></div></td>
                               <td class="td-actions text-right">
                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
                                   <i class="material-icons"></i>
@@ -256,16 +407,9 @@
                             </tr>
                             <tr>
                               <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="">
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
+                                
                               </td>
-                              <td>Avoid touching eyes and face
+                              <td><div id="cnf3"></div>
                               </td>
                               <td class="td-actions text-right">
                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
@@ -278,16 +422,37 @@
                             </tr>
                             <tr>
                               <td>
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" checked>
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
+                                
                               </td>
-                              <td>Visit CDC Guidelines</td>
+                              <td><div id="cnf4"></div></td>
+                              <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
+                                  <i class="material-icons"></i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
+                                  <i class="material-icons"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                
+                              </td>
+                              <td><div id="cnf5"></div></td>
+                              <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
+                                  <i class="material-icons"></i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
+                                  <i class="material-icons"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                
+                              </td>
+                              <td><div id="cnf6"></div></td>
                               <td class="td-actions text-right">
                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
                                   <i class="material-icons"></i>
@@ -320,9 +485,7 @@
           <nav class="float-left">
             <ul>
               <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
+                
               </li>
             </ul>
           </nav>
@@ -330,8 +493,7 @@
             &copy;
             <script>
               document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+            </script>
           </div>
           <!-- your footer here -->
         </div>

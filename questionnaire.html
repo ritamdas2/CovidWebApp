@@ -12,9 +12,64 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+
+  <script defer src="/__/firebase/7.19.1/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/7.19.1/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.19.1/firebase-database.js"></script>
+  <script defer src="/__/firebase/7.19.1/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/7.19.1/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+  
+  <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const uuid = urlParams.get('uuid');
+      const uutype = urlParams.get('uutype');
+
+      function processForm() {
+          var atRisk = "Y";
+          if (document.getElementById('qn1').checked && document.getElementById('qn2').checked && document.getElementById('qn3').checked && document.getElementById('qn4').checked && document.getElementById('qn5').checked && document.getElementById('qn6').checked && document.getElementById('qn7').checked && document.getElementById('qn8').checked) {
+            alert("Not at risk");
+            atRisk = "N";
+          }
+          else {
+            alert("At Risk");
+            atRisk="Y";
+          }
+          updateUsr(atRisk,uuid);
+      }
+
+      function updateUsr(uRisk, uuid) {
+        //firebase.database().ref("-users/-1/uatrisk").set(uRisk);
+        
+        if (uRisk == "Y") {
+//          alert(uRisk+","+uuid)
+           var query = firebase.database().ref("users").orderByChild("uemail").equalTo(uuid);
+           query.once("child_added", function(snapshot) {
+              snapshot.ref.update({ 'uatrisk' : "Y" })
+           });
+        }
+        else {
+          var query = firebase.database().ref("users").orderByChild("uemail").equalTo(uuid);
+          query.once("child_added", function(snapshot) {
+              snapshot.ref.update({ 'uatrisk': "N" })
+           });
+        }
+      
+      }
+          //alert("Risk: "+uRisk+", UUID: "+uuid);
+        // var ref = firebase.database().ref("users");
+        // ref.once("value").then(function(snapshot) {
+        //     snapshot.forEach(function(data) {
+        //         if (data.child("uemail").val() == uuid) {
+        //             data.set({"uatrisk": uRisk});
+                    
+  </script>
 </head>
 
-<body class="dark-edition">
+<!-- <body class="dark-edition" onload="updateUsr('N', uuid)">-->
+<body class="dark-edition"> 
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="./assets/img/sidebar-2.jpg">
       <!--
@@ -30,24 +85,24 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
-            <a class="nav-link" href="javascript:void(0)">
+            <a class="nav-link" href="userDash.html" onclick="location.href=this.href+'?uuid='+uuid; return false;">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
           <!-- your sidebar here -->
           <li class="nav-item active  ">
-            <a class="nav-link" href="questionnaire.html">
+            <a class="nav-link" href="questionnaire.html" onclick="location.href=this.href+'?uuid='+uuid; return false;">
             <i class="material-icons">assignment</i>
               <p>COVID Questionnaire</p>
           </a>
           <li class="nav-item active  ">
-              <a class="nav-link" href="javascript:void(0)">
+              <a class="nav-link" href="adminDash.html" onclick="if (uutype == 'A') {location.href=this.href+'?uuid='+uuid;} else {alert('Not an admin user')}; return false;">
               <i class="material-icons">perm_identity</i>
                 <p>Admin Dashboard</p>
             </a>
             <li class="nav-item active  ">
-                <a class="nav-link" href="javascript:void(0)">
+                <a class="nav-link" href="index.html">
                 <i class="material-icons"></i>
                   <p>Sign Out</p>
               </a>
@@ -60,7 +115,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)"><b>COVID-19 Daily Symptom Screen</b></a>
+            <!-- <a class="navbar-brand" href="javascript:void(0)"><b>COVID-19 Daily Symptom Screen</b></a>-->
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -84,95 +139,109 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <form>
-        
-        <br>
-        <br>
-        <b>Have you had a fever of 100F, or feeling unusually hot accompanied by shivering/chills?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
+      <form id="questions" method="post" action="javascript:document.referrer;" onsubmit="processForm();">
           <br>
-          <b>Are you experiencing a new cough not elated to chronic condition?</b>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-              <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-              <label class="form-check-label" for="inlineCheckbox2">No</label>
-            </div>
-            <br>
-            <b>Do you have difficulty breathing or shortness of breath?</b>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">No</label>
-              </div>
-              <br>
-              <b>Do you have a sore throat?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
           <br>
-          <b>Are you experiencing new loss of taste or smell?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
           <br>
-          <b>Vomiting or extreme nausea?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
-          <b>Sever fatigue?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
-          <b>Sever muscle aches?</b>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Yes</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">No</label>
-          </div>
-          <br>
+            <table border="1" style="border-collapse: collapse; width: 70.50140056022408%; height: 292px; color: #ffffff;">
+                    <tbody>
+                    <tr style="height: 51px;">
+                    <td style="width: 89.97668997668998%; height: 51px;"><a class="navbar-brand"><b>COVID-19 Daily Symptom Screen</b></a></td>
+                    <td style="width: 4.8018648018648%; height: 51px; text-align: center;"><a class="navbar-brand"><b>Y</b></a></td>
+                    <td style="width: 5.221445221445223%; height: 51px; text-align: center;"><a class="navbar-brand"><b>N</b></a></td>
+                    </tr>
+                    <tr style="height: 21px;">
+                    <td style="width: 89.97668997668998%; height: 21px;">
+                    <div>
+                    <div><span><b>Have you had a fever of 100F, or feeling unusually hot accompanied by shivering/chills?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy1" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn1" /></td>
+                    </tr>
+                    <tr style="height: 21px;">
+                    <td style="width: 89.97668997668998%; height: 21px;">
+                    <div>
+                    <div><span><b>Are you experiencing a new cough not elated to chronic condition?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy2" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn2" /></td>
+                    </tr>
+                    <tr style="height: 21px;">
+                    <td style="width: 89.97668997668998%; height: 21px;">
+                    <div>
+                    <div><span><b>Do you have difficulty breathing or shortness of breath?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy3" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn3" /></td>
+                    </tr>
+                    <tr style="height: 21px;">
+                    <td style="width: 89.97668997668998%; height: 21px;">
+                    <div>
+                    <div><span><b>Do you have a sore throat?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy4" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn4" /></td>
+                    </tr>
+                    <tr style="height: 21px;">
+                    <td style="width: 89.97668997668998%; height: 21px;">
+                    <div>
+                    <div><span><b>Are you experiencing new loss of taste or smell?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy5" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn5" /></td>
+                    </tr>
+                    <tr style="height: 21px;">
+                    <td style="width: 89.97668997668998%; height: 21px;">
+                    <div>
+                    <div><span><b>Vomiting or extreme nausea?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy6" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn6" /></td>
+                    </tr>
+                    <tr style="height: 21px;">
+                    <td style="width: 89.97668997668998%; height: 21px;">
+                    <div>
+                    <div><span><b>Severe fatigue?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy7" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn7" /></td>
+                    </tr>
+                    <tr style="height: 10px;">
+                    <td style="width: 89.97668997668998%; height: 10px;">
+                    <div>
+                    <div><span><b>Severe muscle aches?</b></span></div>
+                    </div>
+                    </td>
+                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy8" /></td>
+                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn8" /></td>
+                    </tr>
+                    <tr style="height: 72px;">
+                    <td style="width: 89.97668997668998%; height: 72px;" colspan="3">
+                    <div>
+                    <div>
+                    <div><span><b>Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.</span></div>
+                    <div><span> Visit your local healthcare professionals if you are experiencing severe symptoms or have been in contact with a contaminated individual.</span></div></b>
+                    </div>
+                    </div>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <p></p>
+                    <div>
+                    <div></div>
+                    </div>
+                    <br>
         <button type="submit" class="btn btn-primary">Submit</button>
         <br>
         <br>
-        Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.
-        Visit your local healthcare professionals if you are experiencing severe symptoms or have been in contact with a contaminated individual.
       </form>
       <footer class="footer">
         <div class="container-fluid">
