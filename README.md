@@ -3,7 +3,9 @@
 
 
 The COIVD App is web administration application that tracks the your daily sysmptoms while providing you with important information about COVID around the world
-using a reliable and accurrate data source (https://covid19api.com/). The Administrator Dashboard provides information about how healthy th users are with reagrd
+using a reliable and accurrate data source (https://covid19api.com/).  The COVID daily tracker app requires a Single Sign On through Gmail or Facebook.
+
+The Administrator Dashboard provides information about how healthy th users are with reagrd
 to COVID-19. It will show the names, email ID and Location of the user and lets you know if they are at risk or not based on their COVID questionnaire. 
 
 The User Dashboard displays comparative figures from countries around the world. It shows the confirmed caeses which are updated daily.
