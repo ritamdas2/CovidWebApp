@@ -1,4 +1,4 @@
-# COVID  APP
+# COVID-19 Web App (Daily Symptom Screening)
 ## By Ritam Das & Fatima Dantsoho
 
 
@@ -17,8 +17,7 @@ Firebase will host this web application at the following link:
 
 (https://tempcovid-48205.firebaseapp.com/)
 
-With Firebase command line tools, it is possible to locally host this project.
-
+With Firebase command line tools, it is possible to locally host this project. Clone this repository, add your own Firebase project tags to the "index.html", and host this project locally using the command "firebase serve". Don't forget to add yourself manually into the database and complete all attributes for best functionality.
 
 ## App Structure
 Within the app you'll find the following sections and tabs:
