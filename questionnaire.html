@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Admin Dash COVID Check</title>
+  <title>User Dash COVID Check</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link href="assets/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
-<<<<<<< HEAD
 
   <script defer src="/__/firebase/7.19.1/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
@@ -71,17 +70,6 @@
 
 <!-- <body class="dark-edition" onload="updateUsr('N', uuid)">-->
 <body class="dark-edition"> 
-=======
-  <script>
-    function signOut() {
-      window.location.href = "index.html";
-    }
-  </script>
-</head>
-
-
-<body class="dark-edition">
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="./assets/img/sidebar-2.jpg">
       <!--
@@ -90,7 +78,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="javascript:void(0)" class="simple-text logo-normal">
           BU COVID Check
         </a>
       </div>
@@ -109,20 +97,12 @@
               <p>COVID Questionnaire</p>
           </a>
           <li class="nav-item active  ">
-<<<<<<< HEAD
               <a class="nav-link" href="adminDash.html" onclick="if (uutype == 'A') {location.href=this.href+'?uuid='+uuid;} else {alert('Not an admin user')}; return false;">
-=======
-              <a class="nav-link" href="adminDash.html">
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
               <i class="material-icons">perm_identity</i>
                 <p>Admin Dashboard</p>
             </a>
             <li class="nav-item active  ">
-<<<<<<< HEAD
                 <a class="nav-link" href="index.html">
-=======
-                <a class="nav-link" href="#" onclick="signOut();">
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
                 <i class="material-icons"></i>
                   <p>Sign Out</p>
               </a>
@@ -159,7 +139,6 @@
         </div>
       </nav>
       <!-- End Navbar -->
-<<<<<<< HEAD
       <form id="questions" method="post" action="javascript:document.referrer;" onsubmit="processForm();">
           <br>
           <br>
@@ -264,65 +243,6 @@
         <br>
         <br>
       </form>
-=======
-      <form name= "quiz" id ="quiz">
-        
-        <br>
-        <br>
-          
-          <div>
-            <p>1. Have you had a fever of 100F, or feeling unusually hot accompanied by shivering/chills?</p>
-            <p><input type="radio" name="question1" value="Yes"> YES </p>
-            <p><input type="radio" name="question1" value="No"> NO </p>
-          </div>
-
-          <div>
-            <p>2. Are you experiencing a new cough not elated to chronic condition?</p>
-            <p><input type="radio" name="question2" value="Yes"> YES </p>
-            <p><input type="radio" name="question2" value="No"> NO </p>
-          </div>
-
-          <div>
-            <p>3. Do you have difficulty breathing or shortness of breath?</p>
-            <p><input type="radio" name="question3" value="Yes"> YES </p>
-            <p><input type="radio" name="question3" value="No"> NO </p>
-          </div>
-
-          <div>
-            <p>4. Do you have a sore throat?</p>
-            <p><input type="radio" name="question4" value="Yes"> YES </p>
-            <p><input type="radio" name="question4" value="No"> NO </p>
-          </div>
-
-          <div>
-            <p>5. Are you experiencing new loss of taste or smell?</p>
-            <p><input type="radio" name="question5" value="Yes"> YES </p>
-            <p><input type="radio" name="question5" value="No"> NO </p>
-          </div>
-
-          <div>
-            <p>6. Sever fatigue?</p>
-            <p><input type="radio" name="question6" value="Yes"> YES </p>
-            <p><input type="radio" name="question6" value="No"> NO </p>
-          </div>
-
-          <div>
-            <p>7. Sever muscle aches?</p>
-            <p><input type="radio" name="question7" value="Yes"> YES </p>
-            <p><input type="radio" name="question7" value="No"> NO </p>
-          </div> 
-          
-          <input type="button" name="" value="SUBMIT" id = "button" onclick="check()">
-        
-       
-              <br>
-              <br>
-              Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.
-              Visit your local healthcare professionals if you are experiencing severe symptoms or have been in contact with a contaminated individual.
-            </form>
-      <p id = "result"></p>
-    
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
       <footer class="footer">
         <div class="container-fluid">
           <nav class="float-left">
@@ -341,7 +261,6 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script type = "text/javascript" src ="quiz.js"></script>
   <script src="./assets/js/core/jquery.min.js"></script>
   <script src="./assets/js/core/popper.min.js"></script>
   <script src="./assets/js/core/bootstrap-material-design.min.js"></script>
@@ -360,13 +279,6 @@
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="./assets/demo/demo.js"></script>
   <script>
-    function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-    }
-
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');

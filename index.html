@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html> 
+<html>
   <head>
     <meta charset="utf-8">
-    
-    <meta name="google-signin-client_id" content="186644687954-0fhsfta0rjfsdrnrjnpvrsqbigb3ecb8.apps.googleusercontent.com">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="716170563651-fl8n1ccfdc4gi2o7qkpuacba20rv5isk.apps.googleusercontent.com">
     <title>Welcome to Firebase Hosting</title>
 
     <!-- update the version number as needed -->
@@ -16,7 +15,7 @@
     <script defer src="/__/firebase/7.19.1/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer ></script>
+
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
@@ -32,33 +31,25 @@
       }
     </style>
   </head>
-
-      
   <body>
-<<<<<<< HEAD
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <div id="message">
       <h1><b>BU COVID CHECK</b></h1>
       <p>by Ritam Das & Fatima Dantsoho</p>
       <b><h2>Please Sign In:</h2></b>
-=======
-    
-    <div id="message">
-      <h1><b>My COVID App</b></h1>
-      <p><b>Welcome to My COVID app!</b></p>
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
       <!----<a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a> -->
-      
+      <!-- <div id="my-signin2" onclick="googleLogin()" ></div> -->
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="240" data-height="50" data-longtitle="true"></div>
       <!-- <div><fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> </div> -->
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      <!-- <div><a href="#" onclick="onSignIn();">Sign In</a></div>-->
+      <br>
+      <div class="fb-login-button" onlogin="checkLoginState()" data-size="large" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width="240" data-height="50"></div>
+      <br>
+      <br>
+      <!-- <div><a href="#" onclick="signOut();">Sign out</a></div>-->
     </div>
-
-    
-
   <script>
+    
     function onSignIn(googleUser) {
-<<<<<<< HEAD
       var profile = googleUser.getBasicProfile();
       // document.getElementById('uname').value=profile.getEmail();
       var BreakException = {};
@@ -85,63 +76,22 @@
       });
      // var utype = document.getElementById('uname').value;
       
-=======
-        // Useful data for your client-side scripts:
-        if (auth2.isSignedIn.get()) {
-          var profile = auth2.currentUser.get().getBasicProfile();
-          console.log('ID: ' + profile.getId());
-          console.log('Full Name: ' + profile.getName());
-          console.log('Given Name: ' + profile.getGivenName());
-          console.log('Family Name: ' + profile.getFamilyName());
-          console.log('Image URL: ' + profile.getImageUrl());
-          console.log('Email: ' + profile.getEmail());
-        }
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-        var uid = profile.getEmail();
-        var uuid = uid.replace(".", "");
-      
-      
-        if (uuid == "ritamdas@buedu" || uuid == "dantsoho@buedu") {
-          window.location.href = "adminDash.html";
-        }
-        if (uuid == "ritamdas2017@gmailcom" || uuid == "fatimadantsoho@gmailcom") {
-          window.location.href = "userDash.html";
-        }
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
       signOut();
     }
 
-
     function signOut() {
-<<<<<<< HEAD
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
       //document.getElementById('uname').value="user signed out";
     });
   }
-=======
-
-        var auth2 = gapi.auth2.getAuthInstance();
-        firebase.auth2().signOut().then(function() {
-            document.getElementById('uname').value="user signed out";
-        }).catch(function(error) {
-          // An error happened.
-        });
-    }
-
-      
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
 
     function checkLoginState() {
-       var provider = new firebase.auth.GoogleAuthProvider();
-       provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-       firebase.auth().useDeviceLanguage();
-
-       firebase.auth().signInWithPopup(provider).then(function(result => {
+       const provider = new firebase.auth.FacebookAuthProvider();
+       ({ scope: 'email' });
+        firebase.auth().signInWithPopup(provider)
+          .then(result => {
             const user = result.user;
-<<<<<<< HEAD
             var uid = user.email;
             var uuid = uid.replace(".", "");
             var ref = firebase.database().ref("users");
@@ -159,45 +109,27 @@
               });
             });
           });
-=======
-            window.location.href = "userDash.html";
-            //document.getElementById('uname').value=user.email;
-            //console.log(user);
-          }) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-        // ...
-       }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-      });
-       
->>>>>>> cdf270d7a1360da4a4a27aa6c996829ed5a73e17
     }
     
-  function isUserEqual(googleUser, firebaseUser) {
-    if (firebaseUser) {
-      var providerData = firebaseUser.providerData;
-      for (var i = 0; i < providerData.length; i++) {
-        if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-            providerData[i].uid === googleUser.getBasicProfile().getId()) {
-          // We don't need to reauth the Firebase connection.
-          return true;
-        }
-      }
-    }
-  return false;
-  }
-
-   
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '351653192675512',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v8.0'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
 
   </script>
   </body>
