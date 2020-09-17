@@ -44,7 +44,7 @@
         //firebase.database().ref("-users/-1/uatrisk").set(uRisk);
         
         if (uRisk == "Y") {
-//          alert(uRisk+","+uuid)
+          //alert(uRisk+","+uuid)
            var query = firebase.database().ref("users").orderByChild("uemail").equalTo(uuid);
            query.once("child_added", function(snapshot) {
               snapshot.ref.update({ 'uatrisk' : "Y" })
@@ -141,104 +141,146 @@
       <!-- End Navbar -->
       <form id="questions" method="post" action="javascript:document.referrer;" onsubmit="processForm();">
           <br>
+          <table class="table">
+            <thead class=" text-primary">
+                <th>
+                    #
+                </th>
+                <th>
+                  <b>COVID-19 Daily Symptom Screen</b>
+                </th>
+                <th>
+                    Yes
+                </th>
+                <th>
+                    No
+                </th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                      Have you had a fever of 100F, or feeling unusually hot accompanied by shivering/chills?
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qy1" />
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qn1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2
+                    </td>
+                    <td>
+                      Are you experiencing a new cough not elated to chronic condition?
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qy2" />
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qn2" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        3
+                    </td>
+                    <td>
+                      Do you have difficulty breathing or shortness of breath?
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qy3" />
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qn3" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        4
+                    </td>
+                    <td>
+                      Do you have a sore throat?
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qy4" />
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qn4" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        5
+                    </td>
+                    <td>
+                      Are you experiencing new loss of taste or smell?
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qy5" />
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qn5" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        6
+                    </td>
+                    <td>
+                      Vomiting or extreme nausea?
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qy6" />
+                    </td>
+                    <td>
+                      <input type="checkbox" id="qn6" />
+                    </td>
+                </tr>
+                <tr>
+                  <td>
+                      7
+                  </td>
+                  <td>
+                    Severe fatigue?
+                  </td>
+                  <td>
+                    <input type="checkbox" id="qy7" />
+                  </td>
+                  <td>
+                    <input type="checkbox" id="qn7" />
+                  </td>
+              </tr>
+              <tr>
+                <td>
+                    8
+                </td>
+                <td>
+                  Severe muscle aches?
+                </td>
+                <td>
+                  <input type="checkbox" id="qy8" />
+                </td>
+                <td>
+                  <input type="checkbox" id="qn8" />
+                </td>
+            </tr>
+            </tbody>
+        </table>
           <br>
           <br>
-            <table border="1" style="border-collapse: collapse; width: 70.50140056022408%; height: 292px; color: #ffffff;">
-                    <tbody>
-                    <tr style="height: 51px;">
-                    <td style="width: 89.97668997668998%; height: 51px;"><a class="navbar-brand"><b>COVID-19 Daily Symptom Screen</b></a></td>
-                    <td style="width: 4.8018648018648%; height: 51px; text-align: center;"><a class="navbar-brand"><b>Y</b></a></td>
-                    <td style="width: 5.221445221445223%; height: 51px; text-align: center;"><a class="navbar-brand"><b>N</b></a></td>
-                    </tr>
-                    <tr style="height: 21px;">
-                    <td style="width: 89.97668997668998%; height: 21px;">
-                    <div>
-                    <div><span><b>Have you had a fever of 100F, or feeling unusually hot accompanied by shivering/chills?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy1" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn1" /></td>
-                    </tr>
-                    <tr style="height: 21px;">
-                    <td style="width: 89.97668997668998%; height: 21px;">
-                    <div>
-                    <div><span><b>Are you experiencing a new cough not elated to chronic condition?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy2" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn2" /></td>
-                    </tr>
-                    <tr style="height: 21px;">
-                    <td style="width: 89.97668997668998%; height: 21px;">
-                    <div>
-                    <div><span><b>Do you have difficulty breathing or shortness of breath?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy3" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn3" /></td>
-                    </tr>
-                    <tr style="height: 21px;">
-                    <td style="width: 89.97668997668998%; height: 21px;">
-                    <div>
-                    <div><span><b>Do you have a sore throat?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy4" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn4" /></td>
-                    </tr>
-                    <tr style="height: 21px;">
-                    <td style="width: 89.97668997668998%; height: 21px;">
-                    <div>
-                    <div><span><b>Are you experiencing new loss of taste or smell?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy5" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn5" /></td>
-                    </tr>
-                    <tr style="height: 21px;">
-                    <td style="width: 89.97668997668998%; height: 21px;">
-                    <div>
-                    <div><span><b>Vomiting or extreme nausea?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy6" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn6" /></td>
-                    </tr>
-                    <tr style="height: 21px;">
-                    <td style="width: 89.97668997668998%; height: 21px;">
-                    <div>
-                    <div><span><b>Severe fatigue?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy7" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn7" /></td>
-                    </tr>
-                    <tr style="height: 10px;">
-                    <td style="width: 89.97668997668998%; height: 10px;">
-                    <div>
-                    <div><span><b>Severe muscle aches?</b></span></div>
-                    </div>
-                    </td>
-                    <td style="width: 4.8018648018648%; height: 21px; text-align: center;"><input type="checkbox" id="qy8" /></td>
-                    <td style="width: 5.221445221445223%; height: 21px; text-align: center;"><input type="checkbox" id="qn8" /></td>
-                    </tr>
-                    <tr style="height: 72px;">
-                    <td style="width: 89.97668997668998%; height: 72px;" colspan="3">
-                    <div>
-                    <div>
-                    <div><span><b>Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.</span></div>
-                    <div><span> Visit your local healthcare professionals if you are experiencing severe symptoms or have been in contact with a contaminated individual.</span></div></b>
-                    </div>
-                    </div>
-                    </td>
-                    </tr>
-                    </tbody>
-                    </table>
-                    <p></p>
-                    <div>
-                    <div></div>
-                    </div>
-                    <br>
+          <div class="card">
+            <div class="card-body">
+             <b><span>Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.</span>
+                <span>Visit your local healthcare professionals if you are experiencing severe symptoms or have been in contact with a contaminated individual.</span></b>
+               
+            </div>
+          </div>
+          <br>
         <button type="submit" class="btn btn-primary">Submit</button>
         <br>
         <br>
