@@ -38,6 +38,8 @@ covid-web-app/
 
 ## Video Demonstration
 
+Click to watch:
+
 [![](http://img.youtube.com/vi/tSNSg1vnl6A/0.jpg)](http://www.youtube.com/watch?v=tSNSg1vnl6A "")
 
 
