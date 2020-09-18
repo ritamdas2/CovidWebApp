@@ -2,10 +2,10 @@
 ## By Ritam Das & Fatima Dantsoho
 
 
-The COVID App is web application that tracks your daily symptoms while providing you with important information about COVID around the world
+The COVID App is a web application that tracks your daily symptoms while providing you with important information about COVID around the world
 using a reliable and accurrate data source (https://covid19api.com/). The COVID daily tracker app requires a Single Sign On through Gmail or Facebook. The admin user must single sign on through Google.
 
-The Administrator Dashboard provides information about how healthy all users within the database are with regard to COVID-19. It will show the names, email ID and location of the user. Most importantly, it lets the admin know which users are at risk and which are not based on their responses in the COVID questionnaire. 
+The Administrator Dashboard provides information about how healthy all users in the database are with regard to COVID-19. It will show the names, email ID and location of the user. Most importantly, it lets the admin know which users are at risk and which are not based on their responses in the COVID questionnaire. 
 
 The User Dashboard displays comparative figures from countries around the world and the confirmed cases which are updated daily.
 
@@ -18,6 +18,8 @@ Firebase will host this web application at the following link:
 (https://tempcovid-48205.firebaseapp.com/)
 
 With Firebase command line tools, it is possible to locally host this project. Clone this repository, add your own Firebase project tags to the "index.html", and host this project locally using the command "firebase serve". Don't forget to add yourself manually into the database and complete all attributes for best functionality.
+
+This project took advantage of Google's Firebase as a backend service. More specifically, Firebase authentication, hosting, and realtime database were major components of this web application.
 
 ## App Structure
 Within the app you'll find the following sections and tabs:
