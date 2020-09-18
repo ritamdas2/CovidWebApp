@@ -36,7 +36,7 @@ covid-web-app/
 |
 ├── Admin Dashboard
 | - informational COVID data (API)
-| - all user information 
+| - all user information (At Risk/Not at Risk, location, & email ID)
 |
 
 ```
