@@ -11,7 +11,7 @@ The User Dashboard displays comparative figures from countries around the world 
 
 The COVID questionnaire is aimed at identifying both asymptomatic and symptomatic users who are carrying COVID-19 so they can be promptly treated and limit the spread. Upon completion of the questionnaire, the "At Risk" status of the user is updated. 
 
-Users will need to be manually added to the database through the Firebase console.
+### Users will need to be manually added to the database through the Firebase console.
 
 Firebase will host this web application at the following link:
 
