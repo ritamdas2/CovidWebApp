@@ -15,7 +15,9 @@ The COVID questionnaire is aimed at identifying both asymptomatic and symptomati
 
 Firebase will host this web application at the following link:
 
-(https://tempcovid-48205.firebaseapp.com/)
+(https://tempcovid-48205.firebaseapp.com/) --> currently experiencing authentication errors, please download this project and host locally (refer to video and text below)
+
+Refer to Firebase Docs for more info (https://firebase.google.com/docs/web/setup)
 
 With Firebase command line tools, it is possible to locally host this project. Clone this repository, add your own Firebase project tags to the "index.html", and host this project locally using the command "firebase serve". Don't forget to add yourself manually into the database and complete all attributes for best functionality.
 
@@ -36,7 +38,7 @@ covid-web-app/
 |
 ├── Admin Dashboard
 | - informational COVID data (API)
-| - all user information (At Risk/Not at Risk, location, & email ID)
+| - all user information (At Risk/Not at Risk, location, name, & email ID)
 |
 
 ```
