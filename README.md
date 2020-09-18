@@ -28,12 +28,16 @@ Within the app you'll find the following sections and tabs:
 covid-web-app/
 |
 ├── Dashboard
-|
+| - informational COVID data (API)
+| - user information (At Risk/Not at Risk)
 |
 ├── COVID Questionnaire
-|
+| - short daily symptom screening based on most prominent symptoms of COVID-19
 |
 ├── Admin Dashboard
+| - informational COVID data (API)
+| - all user information 
+|
 
 ```
 
